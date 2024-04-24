@@ -1,8 +1,13 @@
 import Link from "next/link";
-import properties from "@/app/properties.json";
+//if we need fetching the data locally from json file
+//import properties from "@/app/properties.json";
 import PropertyCard from "../components/properties/PropertyCard";
+import { fetchProperties } from "@/app/utils/requests";
 
-const PropertiesPage = () => {
+const PropertiesPage = async () => {
+  // now this contains the data from the database
+  const properties = await fetchProperties();
+  properties.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
   return (
     <section className="px-4 py-6">
       <div className="container-xl lg:container m-auto px-4 py-6">
