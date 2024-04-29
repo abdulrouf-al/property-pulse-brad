@@ -1,5 +1,5 @@
 import connectDb from "@/app/config/database";
-import Property from "@/../models/Property";
+import Property from "@/app/models/Property";
 
 //Get /api/properties/:id
 export const GET = async (request, { params }) => {

@@ -9,19 +9,21 @@ import { useState, useEffect } from "react";
 import {signIn,signOut,useSession,getProviders} from 'next-auth/react'
 
 const Navbar = () => {
-  const { data: session } = useSession();
+  const { data: session } = useSession(); //get data and rename it as session
+  const profileImage=session?.user?.image;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
   const pathname = usePathname();
-useEffect(()=>{
-const setAuthProviders=async()=>{
-  const res = await getProviders()
-  setProviders(res)
-}
-setAuthProviders()
-},[])
-console.log(providers)
+  useEffect(()=>{
+  const setAuthProviders=async()=>{
+    const res = await getProviders()
+    setProviders(res)
+  }
+  setAuthProviders()
+  },[])
+  //console.log(providers)
+  //console.log(session)
   return (
     <nav className="bg-blue-700 border-b border-blue-500">
       <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -168,8 +170,11 @@ console.log(providers)
                     <span className="sr-only">Open user menu</span>
                     <Image
                       className="h-8 w-8 rounded-full"
-                      src={profileDefault}
+                      src={profileImage || profileDefault}
                       alt=""
+                      width={40}
+                      height={40}
+                      //sizes="100vw"
                     />
                   </button>
                 </div>
@@ -186,6 +191,9 @@ console.log(providers)
                   >
                     <Link
                       href="/profile"
+                      onClick={()=>{
+                        setIsProfileMenuOpen(false)
+                      }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
@@ -195,6 +203,9 @@ console.log(providers)
                     </Link>
                     <Link
                       href="properties/saved"
+                      onClick={()=>{
+                        setIsProfileMenuOpen(false)
+                      }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
@@ -203,6 +214,10 @@ console.log(providers)
                       Saved Properties
                     </Link>
                     <button
+                    onClick={()=>{
+                      signOut()
+                      setIsProfileMenuOpen(false)
+                    }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
