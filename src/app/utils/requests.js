@@ -7,7 +7,7 @@ export async function fetchProperties() {
     if (!apiDomain) {
       return [];
     }
-    const res = await fetch(`${apiDomain}/properties`); //same as http://localhost:3000/api/properties
+    const res = await fetch(`${apiDomain}/properties`, { cache: "no-store" }); //{ cache: "no-store" } will show the new added property without hard-refreshing the page
     if (!res.ok) {
       throw new Error("Failed to fetch data");
     }
