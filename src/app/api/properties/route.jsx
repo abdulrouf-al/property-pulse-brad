@@ -1,9 +1,6 @@
 import connectDb from "@/app/config/database";
 import Property from "@/app/models/Property";
 import cloudinary from "@/app/config/cloudinary";
-
-import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/app/utils/authOptions";
 import { getSessionUser } from "@/app/utils/getSessionUser";
 
 //Get /api/properties
