@@ -70,7 +70,7 @@ export const POST = async (request) => {
 
     //upload image(s) to cloudinary
     const imageUploadPromises = [];
-    /* for (const image of images) {
+    for (const image of images) {
       const imageBuffer = await image.arrayBuffer();
       const imageArray = Array.from(new Uint8Array(imageBuffer));
       const imageData = Buffer.from(imageArray);
@@ -89,7 +89,7 @@ export const POST = async (request) => {
       const uploadedImages = await Promise.all(imageUploadPromises);
       //add uploaded images to the propertyData object
       propertyData.images = uploadedImages;
-    } */
+    }
 
     //console.log(propertyData);
     const newProperty = new Property(propertyData);
