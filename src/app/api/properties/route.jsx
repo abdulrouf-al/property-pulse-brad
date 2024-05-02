@@ -28,7 +28,7 @@ export const POST = async (request) => {
 
     //get form data
     const formData = await request.formData();
-    console.log(formData.get("name")); // => Test Property
+    //console.log(formData.get("name")); // => Test Property
     // access all values from amenities and images
     const amenities = formData.getAll("amenities");
     const images = formData

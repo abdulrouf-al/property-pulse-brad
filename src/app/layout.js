@@ -3,6 +3,8 @@ import "@/app/globals.css";
 import Navbar from "./components/home/Navbar";
 import Footer from "./components/home/Footer";
 import AuthProvider from "./components/auth/AuthProvider";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,16 +16,17 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <AuthProvider>
+    <AuthProvider>
+      <html lang="en">
+        <body className={inter.className}>
           <main>
             <Navbar />
             {children}
           </main>
-        </AuthProvider>
-      </body>
-      {/*  <Footer /> */}
-    </html>
+          <Footer />
+          <ToastContainer />
+        </body>
+      </html>
+    </AuthProvider>
   );
 }

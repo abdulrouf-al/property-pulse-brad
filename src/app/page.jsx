@@ -1,6 +1,5 @@
 import Hero from "./components/home/Hero";
 import InfoBoxes from "./components/home/InfoBoxes";
-import Footer from "./components/home/Footer";
 import HomeProperties from "./components/home/HomeProperties";
 
 const Homepage = () => {
@@ -9,7 +8,6 @@ const Homepage = () => {
       <Hero />
       <InfoBoxes />
       <HomeProperties />
-      <Footer />
     </>
   );
 };
