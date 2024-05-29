@@ -24,7 +24,7 @@ export const POST = async (request) => {
     if (!sessionUser || !sessionUser.userId) {
       return new Response("User ID is required", { status: 401 });
     }
-    const { user, userId } = sessionUser;
+    const { userId } = sessionUser;
 
     //get form data
     const formData = await request.formData();
@@ -100,6 +100,7 @@ export const POST = async (request) => {
       status: 200,
     }); */
   } catch (error) {
+    console.log(error);
     return new Response("Failed to add property", { status: 500 });
   }
 };
