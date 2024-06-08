@@ -15,9 +15,9 @@ const MessageCard = ({ message }) => {
       if (res.status === 200) {
         const message = await res.json();
         setIsRead(message.read);
-        setUnreadCount((prevCount) => {
-          message.read ? prevCount - 1 : prevCount + 1;
-        });
+        setUnreadCount((prevCount) =>
+          message.read ? prevCount - 1 : prevCount + 1
+        );
         if (message.read) {
           toast.success("Marked as read ");
         } else {
