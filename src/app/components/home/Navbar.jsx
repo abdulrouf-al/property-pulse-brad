@@ -6,22 +6,23 @@ import logo from "@/app/assets/images/logo-white.png";
 import profileDefault from "@/app/assets/images/profile.png";
 import { FaGoogle } from "react-icons/fa";
 import { useState, useEffect } from "react";
-import {signIn,signOut,useSession,getProviders} from 'next-auth/react'
+import { signIn, signOut, useSession, getProviders } from "next-auth/react";
+import UnreadMessagesCount from "../messages/UnreadMessagesCount";
 
 const Navbar = () => {
   const { data: session } = useSession(); //get data and rename it as session
-  const profileImage=session?.user?.image;
+  const profileImage = session?.user?.image;
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [providers, setProviders] = useState(null);
   const pathname = usePathname();
-  useEffect(()=>{
-  const setAuthProviders=async()=>{
-    const res = await getProviders()
-    setProviders(res)
-  }
-  setAuthProviders()
-  },[])
+  useEffect(() => {
+    const setAuthProviders = async () => {
+      const res = await getProviders();
+      setProviders(res);
+    };
+    setAuthProviders();
+  }, []);
   //console.log(providers)
   //console.log(session)
   return (
@@ -107,18 +108,20 @@ const Navbar = () => {
           {!session && (
             <div className="hidden md:block  md:ml-6">
               <div className="flex items-center">
-                {providers&& Object.values(providers).map((provider,index)=>(
-                  <button
-                  onClick={()=>{
-                    signIn(provider.id)
-                    console.log(provider.id)
-                  }}
-                  key={index} className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
-                  <FaGoogle className="  mr-2" />
-                  <span>Login or Register</span>
-                </button>
-                ))}
-                
+                {providers &&
+                  Object.values(providers).map((provider, index) => (
+                    <button
+                      onClick={() => {
+                        signIn(provider.id);
+                        console.log(provider.id);
+                      }}
+                      key={index}
+                      className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                    >
+                      <FaGoogle className="  mr-2" />
+                      <span>Login or Register</span>
+                    </button>
+                  ))}
               </div>
             </div>
           )}
@@ -147,10 +150,7 @@ const Navbar = () => {
                     />
                   </svg>
                 </button>
-                <span className="absolute top-0 right-0 inline-flex items-center justify-center px-2 py-1 text-xs font-bold leading-none text-white transform translate-x-1/2 -translate-y-1/2 bg-red-600 rounded-full">
-                  2
-                  {/*                 <!-- Replace with the actual number of notifications -->*/}
-                </span>
+                <UnreadMessagesCount session={session} />
               </Link>
               {/*             <!-- Profile dropdown button -->*/}
 
@@ -191,8 +191,8 @@ const Navbar = () => {
                   >
                     <Link
                       href="/profile"
-                      onClick={()=>{
-                        setIsProfileMenuOpen(false)
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
                       }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
@@ -203,8 +203,8 @@ const Navbar = () => {
                     </Link>
                     <Link
                       href="properties/saved"
-                      onClick={()=>{
-                        setIsProfileMenuOpen(false)
+                      onClick={() => {
+                        setIsProfileMenuOpen(false);
                       }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
@@ -214,10 +214,10 @@ const Navbar = () => {
                       Saved Properties
                     </Link>
                     <button
-                    onClick={()=>{
-                      signOut()
-                      setIsProfileMenuOpen(false)
-                    }}
+                      onClick={() => {
+                        signOut();
+                        setIsProfileMenuOpen(false);
+                      }}
                       className="block px-4 py-2 text-sm text-gray-700"
                       role="menuitem"
                       tabIndex="-1"
@@ -265,18 +265,21 @@ const Navbar = () => {
                 Add Property
               </Link>
             )}
-            {!session && providers&& Object.values(providers).map((provider,index)=>(
+            {!session &&
+              providers &&
+              Object.values(providers).map((provider, index) => (
                 <button
-                onClick={()=>{
-                  signIn(provider.id)
-                  console.log(provider.id)
-                }}
-                key={index} className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2">
-                <FaGoogle className="  mr-2" />
-                <span>Login or Register</span>
-              </button>
-              )
-            )}
+                  onClick={() => {
+                    signIn(provider.id);
+                    console.log(provider.id);
+                  }}
+                  key={index}
+                  className="flex items-center text-white bg-gray-700 hover:bg-gray-900 hover:text-white rounded-md px-3 py-2"
+                >
+                  <FaGoogle className="  mr-2" />
+                  <span>Login or Register</span>
+                </button>
+              ))}
           </div>
         </div>
       )}

@@ -6,7 +6,7 @@ import AuthProvider from "./components/auth/AuthProvider";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "photoswipe/dist/photoswipe.css";
-
+import { GlobalProvider } from "./context/GlobalContext";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -17,17 +17,19 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <AuthProvider>
-      <html lang="en">
-        <body className={inter.className}>
-          <main>
-            <Navbar />
-            {children}
-          </main>
-          <Footer />
-          <ToastContainer />
-        </body>
-      </html>
-    </AuthProvider>
+    <GlobalProvider>
+      <AuthProvider>
+        <html lang="en">
+          <body className={inter.className}>
+            <main>
+              <Navbar />
+              {children}
+            </main>
+            <Footer />
+            <ToastContainer />
+          </body>
+        </html>
+      </AuthProvider>
+    </GlobalProvider>
   );
 }
